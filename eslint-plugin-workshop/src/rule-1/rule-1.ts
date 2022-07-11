@@ -1,28 +1,42 @@
 import { createRule } from '../utils/createRule';
-import { Rule } from 'eslint';
-import RuleModule = Rule.RuleModule;
 
-export const rule1 = createRule<any, any>({
-  name: 'rule-1',
+type MessageIds = 'unexpected';
+
+export const rule1 = createRule<[], MessageIds>({
   meta: {
     type: 'problem',
     fixable: 'code',
-    messages: { na: '' },
-    docs: {
-      description: 'heh',
-      recommended: false,
-    },
+    messages: { unexpected: 'Expected {{expectedOperator}}, received {{actualOperator}}' },
     schema: {},
   },
   defaultOptions: [],
 
-  create(context) {
+  create: (context) => {
     return {
-      FunctionDeclaration: (node) => {
-        context.report({
-          messageId: 'na',
-          node,
-        });
+      BinaryExpression: (node) => {
+        const operatorRange = [node.left.range[1] + 1, node.right.range[0] - 1] as const;
+
+        if (node.operator === '==') {
+          context.report({
+            messageId: 'unexpected',
+            data: { expectedOperator: '===', actualOperator: '==' },
+            node,
+            fix: (fixer) => fixer.replaceTextRange(operatorRange, '==='),
+          });
+
+          return;
+        }
+
+        if (node.operator === '!=') {
+          context.report({
+            messageId: 'unexpected',
+            data: { expectedOperator: '!==', actualOperator: '!=' },
+            node,
+            fix: (fixer) => fixer.replaceTextRange(operatorRange, '!=='),
+          });
+
+          return;
+        }
       },
     };
   },
