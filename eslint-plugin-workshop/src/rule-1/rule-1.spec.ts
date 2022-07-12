@@ -14,6 +14,8 @@ describe('rule-1', () => {
       { code: 'a !== null' },
       { code: 'null === null' },
       { code: 'null !== null' },
+      { code: 'a == null', options: [{ allowNull: true }] },
+      { code: 'null != a', options: [{ allowNull: true }] },
     ],
     invalid: [
       {
