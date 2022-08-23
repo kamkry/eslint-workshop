@@ -1,9 +1,9 @@
-import { rule1 } from './rule-1/rule-1';
+import { task1 } from './task-1-basic/task-1';
 import { recommended } from './configs';
 
 export = {
   rules: {
-    rule1,
+    task1,
   },
   configs: {
     recommended,

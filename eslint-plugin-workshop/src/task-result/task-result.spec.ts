@@ -1,5 +1,5 @@
 import { createRuleTester } from '../utils/createRuleTester';
-import { rule1 } from './rule-1';
+import { taskResult } from './task-result';
 import { AST_NODE_TYPES } from '@typescript-eslint/types';
 
 const ruleTester = createRuleTester();
@@ -7,8 +7,8 @@ const ruleTester = createRuleTester();
 const wantedEqEqEq = { expectedOperator: '===', actualOperator: '==' };
 const wantedNotEqEq = { expectedOperator: '!==', actualOperator: '!=' };
 
-describe('rule-1', () => {
-  ruleTester.run('rule-1', rule1, {
+describe('task result', () => {
+  ruleTester.run('task result', taskResult, {
     valid: [
       { code: 'a === null' },
       { code: 'a !== null' },

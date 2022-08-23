@@ -8,7 +8,7 @@ type Options = [
   }
 ];
 
-export const rule1 = createRule<Options, MessageIds>({
+export const taskResult = createRule<Options, MessageIds>({
   meta: {
     type: 'problem',
     fixable: 'code',
