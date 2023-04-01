@@ -8,14 +8,9 @@
   ],
   "scripts": {
     "build": "tsc --project .",
-    "format": "prettier --write 'lib/**/*.ts' './test/**/*.ts'",
-    "lint": "tslint --fix --project ./tsconfig.json",
-    "prelint": "npm run format",
+    "format": "prettier --write",
     "prepack": "npm install && npm run build",
     "test": "jest"
-  },
-  "publishConfig": {
-    "registry": "https://artifactory.allegrogroup.com/artifactory/api/npm/npm-local"
   },
   "devDependencies": {
     "@types/eslint": "8.4.3",
@@ -28,13 +23,8 @@
     "eslint": "7.29.0",
     "husky": "4.3.0",
     "jest": "28.1.1",
-    "jest-junit": "12.2.0",
     "prettier": "2.3.2",
-    "rimraf": "3.0.2",
     "ts-jest": "28.0.5",
     "typescript": "4.7.4"
-  },
-  "jest-junit": {
-    "outputName": "test-results/unit-tests.xml"
   }
 }
