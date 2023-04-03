@@ -5,7 +5,10 @@ const ruleTester = createRuleTester();
 
 describe('task-3', () => {
   ruleTester.run('task-3', task3, {
-    valid: [{ code: 'a === b' }, { code: 'a !== b' }],
+    valid: [
+      { code: 'a === b' }, //
+      { code: 'a !== b' }, //
+    ],
     invalid: [
       {
         code: 'a == b',
@@ -15,7 +18,6 @@ describe('task-3', () => {
             data: { expectedOperator: '===', actualOperator: '==' },
           },
         ],
-        output: 'a === b',
       },
       {
         code: 'a != b',
@@ -25,7 +27,6 @@ describe('task-3', () => {
             data: { expectedOperator: '!==', actualOperator: '!=' },
           },
         ],
-        output: 'a !== b',
       },
     ],
   });

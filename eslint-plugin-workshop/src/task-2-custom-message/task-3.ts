@@ -3,7 +3,7 @@ import { createRule } from '../utils/createRule';
 type MessageIds = 'unexpected';
 type Options = [];
 
-export const task2 = createRule<Options, MessageIds>({
+export const task3 = createRule<Options, MessageIds>({
   meta: {
     type: 'problem',
     fixable: 'code',

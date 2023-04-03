@@ -3,11 +3,11 @@ import { createRule } from '../utils/createRule';
 type MessageIds = 'unexpected';
 type Options = [];
 
-export const task3 = createRule<Options, MessageIds>({
+export const task2 = createRule<Options, MessageIds>({
   meta: {
     type: 'problem',
     fixable: 'code',
-    messages: { unexpected: 'Expected {{expectedOperator}}, received {{actualOperator}}' },
+    messages: { unexpected: 'Unexpected operator' },
     schema: {},
   },
   defaultOptions: [],
@@ -15,23 +15,21 @@ export const task3 = createRule<Options, MessageIds>({
   create: (context) => {
     return {
       BinaryExpression: (node) => {
-        const operatorRange = [node.left.range[1] + 1, node.right.range[0] - 1] as const;
+        const operatorToken = context.getSourceCode().getFirstTokenBetween(node.left, node.right);
 
         if (node.operator === '==') {
           return context.report({
             messageId: 'unexpected',
-            data: { expectedOperator: '===', actualOperator: '==' },
             node,
-            fix: (fixer) => fixer.replaceTextRange(operatorRange, '==='),
+            loc: operatorToken?.loc,
           });
         }
 
         if (node.operator === '!=') {
           return context.report({
             messageId: 'unexpected',
-            data: { expectedOperator: '!==', actualOperator: '!=' },
             node,
-            fix: (fixer) => fixer.replaceTextRange(operatorRange, '!=='),
+            loc: operatorToken?.loc,
           });
         }
       },
