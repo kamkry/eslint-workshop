@@ -15,6 +15,8 @@ describe('task-3', () => {
         errors: [
           {
             messageId: 'unexpected',
+            column: 3,
+            endColumn: 5,
             data: { expectedOperator: '===', actualOperator: '==' },
           },
         ],
@@ -24,6 +26,8 @@ describe('task-3', () => {
         errors: [
           {
             messageId: 'unexpected',
+            column: 3,
+            endColumn: 5,
             data: { expectedOperator: '!==', actualOperator: '!=' },
           },
         ],

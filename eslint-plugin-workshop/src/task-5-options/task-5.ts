@@ -8,7 +8,7 @@ type Options = [
   }
 ];
 
-export const task4 = createRule<Options, MessageIds>({
+export const task5 = createRule<Options, MessageIds>({
   meta: {
     type: 'problem',
     fixable: 'code',
@@ -27,7 +27,11 @@ export const task4 = createRule<Options, MessageIds>({
   create: (context, [options]) => {
     return {
       BinaryExpression: (node) => {
-        const operatorRange = [node.left.range[1] + 1, node.right.range[0] - 1] as const;
+        const operatorToken = context.getSourceCode().getFirstTokenBetween(node.left, node.right);
+
+        if (!operatorToken) {
+          return;
+        }
 
         if (options.allowNull && (isNull(node.left) || isNull(node.right))) {
           return;
@@ -38,7 +42,7 @@ export const task4 = createRule<Options, MessageIds>({
             messageId: 'unexpected',
             data: { expectedOperator: '===', actualOperator: '==' },
             node,
-            fix: (fixer) => fixer.replaceTextRange(operatorRange, '==='),
+            fix: (fixer) => fixer.replaceText(operatorToken, '==='),
           });
         }
 
@@ -47,7 +51,7 @@ export const task4 = createRule<Options, MessageIds>({
             messageId: 'unexpected',
             data: { expectedOperator: '!==', actualOperator: '!=' },
             node,
-            fix: (fixer) => fixer.replaceTextRange(operatorRange, '!=='),
+            fix: (fixer) => fixer.replaceText(operatorToken, '!=='),
           });
         }
       },

@@ -15,14 +15,18 @@ export const task4 = createRule<Options, MessageIds>({
   create: (context) => {
     return {
       BinaryExpression: (node) => {
-        const operatorRange = [node.left.range[1] + 1, node.right.range[0] - 1] as const;
+        const operatorToken = context.getSourceCode().getFirstTokenBetween(node.left, node.right);
+
+        if (!operatorToken) {
+          return;
+        }
 
         if (node.operator === '==') {
           return context.report({
             messageId: 'unexpected',
             data: { expectedOperator: '===', actualOperator: '==' },
-            node,
-            fix: (fixer) => fixer.replaceTextRange(operatorRange, '==='),
+            loc: operatorToken.loc,
+            fix: (fixer) => fixer.replaceText(operatorToken, '==='),
           });
         }
 
@@ -30,8 +34,8 @@ export const task4 = createRule<Options, MessageIds>({
           return context.report({
             messageId: 'unexpected',
             data: { expectedOperator: '!==', actualOperator: '!=' },
-            node,
-            fix: (fixer) => fixer.replaceTextRange(operatorRange, '!=='),
+            loc: operatorToken.loc,
+            fix: (fixer) => fixer.replaceText(operatorToken, '!=='),
           });
         }
       },

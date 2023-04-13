@@ -15,11 +15,17 @@ export const task3 = createRule<Options, MessageIds>({
   create: (context) => {
     return {
       BinaryExpression: (node) => {
+        const operatorToken = context.getSourceCode().getFirstTokenBetween(node.left, node.right);
+
+        if (!operatorToken) {
+          return;
+        }
+
         if (node.operator === '==') {
           return context.report({
             messageId: 'unexpected',
             data: { expectedOperator: '===', actualOperator: '==' },
-            node,
+            loc: operatorToken.loc,
           });
         }
 
@@ -27,7 +33,7 @@ export const task3 = createRule<Options, MessageIds>({
           return context.report({
             messageId: 'unexpected',
             data: { expectedOperator: '!==', actualOperator: '!=' },
-            node,
+            loc: operatorToken.loc,
           });
         }
       },

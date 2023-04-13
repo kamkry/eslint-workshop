@@ -2,5 +2,11 @@
   "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "plugin:workshop/recommended"],
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint", "workshop"],
-  "root": true
+  "root": true,
+  "rules": {
+//    "workshop/task1": "error"
+//    "workshop/task2": "error"
+//    "workshop/task3": "error"
+//    "workshop/task4": "error"
+  }
 }

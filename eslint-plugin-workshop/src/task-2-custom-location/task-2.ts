@@ -17,19 +17,21 @@ export const task2 = createRule<Options, MessageIds>({
       BinaryExpression: (node) => {
         const operatorToken = context.getSourceCode().getFirstTokenBetween(node.left, node.right);
 
+        if (!operatorToken) {
+          return;
+        }
+
         if (node.operator === '==') {
           return context.report({
             messageId: 'unexpected',
-            node,
-            loc: operatorToken?.loc,
+            loc: operatorToken.loc,
           });
         }
 
         if (node.operator === '!=') {
           return context.report({
             messageId: 'unexpected',
-            node,
-            loc: operatorToken?.loc,
+            loc: operatorToken.loc,
           });
         }
       },
