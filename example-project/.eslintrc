@@ -1,5 +1,5 @@
 {
-  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "plugin:workshop/recommended"],
+  "extends": ["plugin:workshop/recommended"],
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint", "workshop"],
   "root": true,
