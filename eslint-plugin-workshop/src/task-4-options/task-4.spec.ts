@@ -1,10 +1,10 @@
 import { createRuleTester } from '../utils/createRuleTester';
-import { task5 } from './task-5';
+import { task4 } from './task4';
 
 const ruleTester = createRuleTester();
 
-describe('task-5', () => {
-  ruleTester.run('task-5', task5, {
+describe('task-4', () => {
+  ruleTester.run('task-4', task4, {
     valid: [
       { code: 'a === b' },
       { code: 'a !== b' },
@@ -19,8 +19,6 @@ describe('task-5', () => {
         errors: [
           {
             messageId: 'unexpected',
-            column: 3,
-            endColumn: 5,
             data: { expectedOperator: '===', actualOperator: '==' },
           },
         ],
@@ -31,8 +29,6 @@ describe('task-5', () => {
         errors: [
           {
             messageId: 'unexpected',
-            column: 3,
-            endColumn: 5,
             data: { expectedOperator: '!==', actualOperator: '!=' },
           },
         ],
@@ -43,8 +39,6 @@ describe('task-5', () => {
         errors: [
           {
             messageId: 'unexpected',
-            column: 3,
-            endColumn: 5,
             data: { expectedOperator: '===', actualOperator: '==' },
           },
         ],
@@ -55,8 +49,6 @@ describe('task-5', () => {
         errors: [
           {
             messageId: 'unexpected',
-            column: 3,
-            endColumn: 5,
             data: { expectedOperator: '!==', actualOperator: '!=' },
           },
         ],

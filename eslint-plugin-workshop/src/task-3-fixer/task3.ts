@@ -1,39 +1,22 @@
 import { createRule } from '../utils/createRule';
-import { TSESTree } from '@typescript-eslint/typescript-estree';
 
 type MessageIds = 'unexpected';
-type Options = [
-  {
-    allowNull: boolean;
-  }
-];
+type Options = [];
 
-export const task5 = createRule<Options, MessageIds>({
+export const task3 = createRule<Options, MessageIds>({
   meta: {
     type: 'problem',
-    fixable: 'code',
     messages: { unexpected: 'Expected {{expectedOperator}}, received {{actualOperator}}' },
-    schema: {
-      properties: {
-        allowNull: {
-          type: 'boolean',
-          default: false,
-        },
-      },
-    },
+    schema: {},
   },
-  defaultOptions: [{ allowNull: false }],
+  defaultOptions: [],
 
-  create: (context, [options]) => {
+  create: (context) => {
     return {
       BinaryExpression: (node) => {
         const operatorToken = context.getSourceCode().getFirstTokenBetween(node.left, node.right);
 
         if (!operatorToken) {
-          return;
-        }
-
-        if (options.allowNull && (isNull(node.left) || isNull(node.right))) {
           return;
         }
 
@@ -58,7 +41,3 @@ export const task5 = createRule<Options, MessageIds>({
     };
   },
 });
-
-function isNull(leftOrRight: TSESTree.Expression | TSESTree.PrivateIdentifier) {
-  return leftOrRight.type === 'Literal' && leftOrRight.value === null;
-}
