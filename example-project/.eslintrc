@@ -1,7 +1,9 @@
 {
   "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint"],
+  "plugins": ["@typescript-eslint", "workshop"],
   "root": true,
-  "rules": {}
+  "rules": {
+    "workshop/no-double-equal": "error"
+  }
 }
