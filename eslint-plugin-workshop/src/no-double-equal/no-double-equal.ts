@@ -6,7 +6,7 @@ type Options = [];
 export const noDoubleEqual = createRule<Options, MessageIds>({
   meta: {
     type: 'problem',
-    messages: { unexpected: 'Unexpected operator' },
+    messages: { unexpected: 'Expected {{expectedOperator}}, received {{actualOperator}}' },
     schema: {},
   },
   defaultOptions: [],
@@ -17,6 +17,7 @@ export const noDoubleEqual = createRule<Options, MessageIds>({
         if (node.operator === '==') {
           return context.report({
             messageId: 'unexpected',
+            data: { expectedOperator: '===', actualOperator: '==' },
             node,
           });
         }
@@ -24,6 +25,7 @@ export const noDoubleEqual = createRule<Options, MessageIds>({
         if (node.operator === '!=') {
           return context.report({
             messageId: 'unexpected',
+            data: { expectedOperator: '!==', actualOperator: '!=' },
             node,
           });
         }

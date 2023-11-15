@@ -12,11 +12,21 @@ describe('no-double-equal', () => {
     invalid: [
       {
         code: 'a == b',
-        errors: [{ messageId: 'unexpected' }],
+        errors: [
+          {
+            messageId: 'unexpected',
+            data: { expectedOperator: '===', actualOperator: '==' },
+          },
+        ],
       },
       {
         code: 'a != b',
-        errors: [{ messageId: 'unexpected' }],
+        errors: [
+          {
+            messageId: 'unexpected',
+            data: { expectedOperator: '!==', actualOperator: '!=' },
+          },
+        ],
       },
     ],
   });
