@@ -14,11 +14,18 @@ export const noDoubleEqual = createRule<Options, MessageIds>({
   create: (context) => {
     return {
       BinaryExpression: (node) => {
+        const operatorToken = context.getSourceCode().getFirstTokenBetween(node.left, node.right);
+
+        if (!operatorToken) {
+          return;
+        }
+
         if (node.operator === '==') {
           return context.report({
             messageId: 'unexpected',
             data: { expectedOperator: '===', actualOperator: '==' },
             node,
+            fix: (fixer) => fixer.replaceText(operatorToken, '==='),
           });
         }
 
@@ -27,6 +34,7 @@ export const noDoubleEqual = createRule<Options, MessageIds>({
             messageId: 'unexpected',
             data: { expectedOperator: '!==', actualOperator: '!=' },
             node,
+            fix: (fixer) => fixer.replaceText(operatorToken, '!=='),
           });
         }
       },

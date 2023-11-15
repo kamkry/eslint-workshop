@@ -5,10 +5,7 @@ const ruleTester = createRuleTester();
 
 describe('no-double-equal', () => {
   ruleTester.run('no-double-equal', noDoubleEqual, {
-    valid: [
-      { code: 'a === b' }, //
-      { code: 'a !== b' }, //
-    ],
+    valid: [{ code: 'a === b' }, { code: 'a !== b' }],
     invalid: [
       {
         code: 'a == b',
@@ -18,6 +15,7 @@ describe('no-double-equal', () => {
             data: { expectedOperator: '===', actualOperator: '==' },
           },
         ],
+        output: 'a === b',
       },
       {
         code: 'a != b',
@@ -27,6 +25,7 @@ describe('no-double-equal', () => {
             data: { expectedOperator: '!==', actualOperator: '!=' },
           },
         ],
+        output: 'a !== b',
       },
     ],
   });
