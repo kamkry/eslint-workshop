@@ -11,6 +11,7 @@ type Options = [
 export const noDoubleEqual = createRule<Options, MessageIds>({
   meta: {
     type: 'problem',
+    fixable: 'code',
     messages: { unexpected: 'Expected {{expectedOperator}}, received {{actualOperator}}' },
     schema: {
       properties: {
